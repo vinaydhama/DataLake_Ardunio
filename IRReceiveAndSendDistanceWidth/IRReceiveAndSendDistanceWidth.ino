@@ -173,9 +173,14 @@ if (CommandToSend== 50 )
         //IrReceiver.printIRResultRawFormatted(&Serial);
 
             //IrReceiver.printIRSendUsage(&Serial);
+//Serial.println(IrReceiver.freqcal_val);
+             IrReceiver.printIRSendUsage(&Serial);
 
         if (IrReceiver.decodedIRData.protocol != UNKNOWN) {
-            IrReceiver.printIRSendUsage(&Serial);
+             IrReceiver.printIRSendUsage(&Serial);
+             
+//IrReceiver.print.FrequencyKHz(&Serial);
+            // Serial.println(IrReceiver.decodedIRData.printIRResultAsCVariables);
 //            IrReceiver.compensateAndStorIRResultInArray(&sDistanceWidthTimingInfo);
 
             if (memcmp(&sDistanceWidthTimingInfo, &IrReceiver.decodedIRData.DistanceWidthTimingInfo,
@@ -184,6 +189,7 @@ if (CommandToSend== 50 )
                 IrReceiver.printDistanceWidthTimingInfo(&Serial, &IrReceiver.decodedIRData.DistanceWidthTimingInfo);
                 Serial.println();
                 sDistanceWidthTimingInfo = IrReceiver.decodedIRData.DistanceWidthTimingInfo; // copy content here
+                
             } else {
                 Serial.print(F("Timing did not change, so we can reuse already stored timing info."));
             }

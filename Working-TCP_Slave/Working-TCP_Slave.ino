@@ -42,25 +42,25 @@ String password = "Vin1@f!1233";
 String newHostname = "HomeAuto-RoomConroller1";
 
 
-// Storage for the recorded code, pre-filled with NEC data
-IRRawDataType sDecodedRawDataArray[RAW_DATA_ARRAY_SIZE] = { 0x7B34ED12 }; // address 0x12 command 0x34
-DistanceWidthTimingInfoStruct sDistanceWidthTimingInfo = { 1250, 450, 1250, 450, 400, 1300}; // NEC timing
+// // Storage for the recorded code, pre-filled with NEC data
+// IRRawDataType sDecodedRawDataArray[RAW_DATA_ARRAY_SIZE] = { 0x7B34ED12 }; // address 0x12 command 0x34
+// DistanceWidthTimingInfoStruct sDistanceWidthTimingInfo = { 1250, 450, 1250, 450, 400, 1300}; // NEC timing
 
-DistanceWidthTimingInfoStruct sDistanceWidthTimingInfoFromRest = { 1250, 450, 1250, 450, 400, 1300}; // NEC timing
+// DistanceWidthTimingInfoStruct sDistanceWidthTimingInfoFromRest = { 1250, 450, 1250, 450, 400, 1300}; // NEC timing
 
 
-uint_fast8_t aFrequencyKHz;
-uint16_t aHeaderMarkMicros;
-uint16_t aHeaderSpaceMicros;
-uint16_t aOneMarkMicros;
-uint16_t aOneSpaceMicros;
-uint16_t aZeroMarkMicros;
-uint16_t aZeroSpaceMicros;
-IRRawDataType aData;
-uint_fast8_t aNumberOfBits;
-uint8_t aFlags;
-uint16_t aRepeatPeriodMillis;
-int_fast8_t aNumberOfRepeats;
+// uint_fast8_t aFrequencyKHz;
+// uint16_t aHeaderMarkMicros;
+// uint16_t aHeaderSpaceMicros;
+// uint16_t aOneMarkMicros;
+// uint16_t aOneSpaceMicros;
+// uint16_t aZeroMarkMicros;
+// uint16_t aZeroSpaceMicros;
+// IRRawDataType aData;
+// uint_fast8_t aNumberOfBits;
+// uint8_t aFlags;
+// uint16_t aRepeatPeriodMillis;
+// int_fast8_t aNumberOfRepeats;
 
 
 const int IR_RECV_PIN = 0;
@@ -333,34 +333,10 @@ strFromRESTAPI= RestServer.arg("aFrequencyKHz");
     aFrequencyKHz = strFromRESTAPI.toInt();
     strFromRESTAPI=0;
   }
+}
 
-//   char buf[30];
-  
-//    FrequencyKHz.toCharArray(buf,FrequencyKHz.length());
-//    Serial.println(buf);
-//    aFrequencyKHz =  strtol(buf, NULL, 16);  
-//   }
+void getSetSystemParams(){
 
-
-// Serial.print("Freq:");
-// Serial.print(aFrequencyKHz,HEX);
-// String s1= "Freq Received " + aFrequencyKHz;
-// RestServer.send(200, "text/json", s1);
-
-// sDistanceWidthTimingInfoFromRest = RestServer.arg("DistanceWidthTimingInfo");
-// aHeaderSpaceMicros = strtol(RestServer.arg("HeaderSpaceMicros"), NULL, 16);
-// aNumberOfBits = strtol(RestServer.arg("NumberOfBits"), NULL, 16);
-// aRepeatPeriodMillis = strtol(RestServer.arg("RepeatPeriodMillis"), NULL, 16);
-// aNumberOfRepeats = strtol(RestServer.arg("NumberOfRepeats"), NULL, 16);
-
-// IrSender.sendPulseDistanceWidthFromArray(aFrequencyKHz, &sDistanceWidthTimingInfoFromRest, aHeaderSpaceMicros, aNumberOfBits,
-// #if defined(USE_MSB_DECODING_FOR_DISTANCE_DECODER)
-//                                              PROTOCOL_IS_MSB_FIRST
-// #else
-//                                              PROTOCOL_IS_LSB_FIRST
-// #endif
-//                                              ,
-//                                              aRepeatPeriodMillis, aNumberOfRepeats);
 }
 
 void getSETWiFiParams() {
@@ -444,7 +420,9 @@ void restServerRouting() {
   RestServer.on(F("/SETWiFiParams/home_timeline.json"), HTTP_GET, getSETWiFiParams);
   RestServer.on(F("/OperateCooler/home_timeline.json"), HTTP_GET, getOperateCooler);
   RestServer.on(F("/SendIRDataFromRESTAPI/home_timeline.json"), HTTP_GET, getSendIRDataFromRESTAPI);
-  //RestServer.on(F("/ReceiveIRData/home_timeline.json"), HTTP_GET, getReceiveIRData);
+  RestServer.on(F("/ReceiveIRData/home_timeline.json"), HTTP_GET, getReceiveIRData);
+  RestServer.on(F("/SetSystemParams/home_timeline.json"), HTTP_GET, getSetSystemParams);
+
 }
 void handleNotFound() {
   String message = "File Not Found\n\n";
