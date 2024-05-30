@@ -1,14 +1,17 @@
-//#include <SPI.h>
-#include <C:\Users\vchikkay\Documents\Arduino\Projects\test\DataLake.H>
-  
-void setup() {
-  //serial.Begin(11200)
-  // put your setup code here, to run once:
+#include <Morse.h>
 
+Morse morse(13);
+
+void setup()
+{
+  morse.begin();
 }
 
-void loop() {
-//helloWorld();
-  // put your main code here, to run repeatedly:
-
+void loop()
+{
+  morse.dot(); morse.dot(); morse.dot();
+  morse.dash(); morse.dash(); morse.dash();
+  morse.dot(); morse.dot(); morse.dot();
+  delay(3000);
 }
+
